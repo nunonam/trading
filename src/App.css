@@ -1,0 +1,355 @@
+/* App Layout */
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  background: var(--bg-header);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header-title {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.header-stat {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.header-label {
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.header-value {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.header-profit {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: var(--radius);
+}
+
+.header-profit.profit-up {
+  background: var(--up-bg);
+}
+
+.header-profit.profit-down {
+  background: var(--down-bg);
+}
+
+.header-profit-value {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.profit-up .header-profit-value,
+.profit-up .header-profit-amount {
+  color: var(--up);
+}
+
+.profit-down .header-profit-value,
+.profit-down .header-profit-amount {
+  color: var(--down);
+}
+
+.header-profit-amount {
+  font-size: 12px;
+}
+
+/* Main Grid */
+.main {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  gap: 1px;
+  flex: 1;
+  background: var(--border);
+}
+
+/* Panels */
+.panel {
+  background: var(--bg);
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.panel-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 12px;
+}
+
+/* Card List */
+.card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.panel-watch .card-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 8px;
+}
+
+/* Cards */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+
+.card-title {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.stock-name {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.stock-code {
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+.card-time {
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+/* Price */
+.card-price {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.current-price {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.change-rate {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.change-rate.up,
+.up {
+  color: var(--up);
+}
+
+.change-rate.down,
+.down {
+  color: var(--down);
+}
+
+/* Bar info */
+.card-bar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.bar-item {
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+/* Signals */
+.card-signals {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.signal-badge {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+}
+
+.signal-badge.active {
+  background: var(--signal-active-bg);
+  border-color: var(--signal-active);
+  color: var(--signal-active);
+}
+
+/* Buy signal highlight */
+.watch-card.buy-signal {
+  border-color: var(--signal-active);
+  box-shadow: 0 0 0 1px var(--signal-active-bg);
+}
+
+/* Holding Card */
+.holding-card.profit {
+  border-left: 3px solid var(--up);
+}
+
+.holding-card.loss {
+  border-left: 3px solid var(--down);
+}
+
+.status-badge {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.status-holding {
+  background: var(--accent-bg);
+  color: var(--accent);
+}
+
+.status-partial_sell {
+  background: var(--up-bg);
+  color: var(--up);
+}
+
+.status-stop_loss {
+  background: var(--down-bg);
+  color: var(--down);
+}
+
+/* Holding Details */
+.holding-detail {
+  margin-bottom: 8px;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 2px 0;
+}
+
+.detail-label {
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+.detail-value {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Swing Info */
+.swing-info {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.swing-item {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.swing-high {
+  background: var(--up-bg);
+  color: var(--up);
+}
+
+.swing-low {
+  background: var(--down-bg);
+  color: var(--down);
+}
+
+/* Buttons */
+.card-action,
+.card-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.btn {
+  flex: 1;
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn:hover {
+  border-color: var(--text-dim);
+}
+
+.btn-buy {
+  background: var(--up-bg);
+  border-color: var(--up);
+  color: var(--up);
+}
+
+.btn-buy:hover {
+  background: var(--up);
+  color: white;
+}
+
+.btn-sell {
+  background: var(--up-bg);
+  border-color: var(--up);
+  color: var(--up);
+}
+
+.btn-sell:hover {
+  background: var(--up);
+  color: white;
+}
+
+.btn-stop {
+  background: var(--down-bg);
+  border-color: var(--down);
+  color: var(--down);
+}
+
+.btn-stop:hover {
+  background: var(--down);
+  color: white;
+}

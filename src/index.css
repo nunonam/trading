@@ -1,0 +1,50 @@
+@font-face { font-family: 'Pretendard'; font-weight: 100; src: url('./assets/fonts/Pretendard/Pretendard-Thin.woff2') format('woff2'); }
+@font-face { font-family: 'Pretendard'; font-weight: 200; src: url('./assets/fonts/Pretendard/Pretendard-ExtraLight.woff2') format('woff2'); }
+@font-face { font-family: 'Pretendard'; font-weight: 300; src: url('./assets/fonts/Pretendard/Pretendard-Light.woff2') format('woff2'); }
+@font-face { font-family: 'Pretendard'; font-weight: 400; src: url('./assets/fonts/Pretendard/Pretendard-Regular.woff2') format('woff2'); }
+@font-face { font-family: 'Pretendard'; font-weight: 500; src: url('./assets/fonts/Pretendard/Pretendard-Medium.woff2') format('woff2'); }
+@font-face { font-family: 'Pretendard'; font-weight: 600; src: url('./assets/fonts/Pretendard/Pretendard-SemiBold.woff2') format('woff2'); }
+@font-face { font-family: 'Pretendard'; font-weight: 700; src: url('./assets/fonts/Pretendard/Pretendard-Bold.woff2') format('woff2'); }
+@font-face { font-family: 'Pretendard'; font-weight: 800; src: url('./assets/fonts/Pretendard/Pretendard-ExtraBold.woff2') format('woff2'); }
+@font-face { font-family: 'Pretendard'; font-weight: 900; src: url('./assets/fonts/Pretendard/Pretendard-Black.woff2') format('woff2'); }
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #0f1117;
+  --bg-card: #1a1d27;
+  --bg-header: #161922;
+  --border: #2a2d3a;
+  --text: #e1e4eb;
+  --text-dim: #8b8fa3;
+  --up: #ef4444;
+  --up-bg: rgba(239, 68, 68, 0.1);
+  --down: #3b82f6;
+  --down-bg: rgba(59, 130, 246, 0.1);
+  --accent: #a78bfa;
+  --accent-bg: rgba(167, 139, 250, 0.1);
+  --signal-active: #10b981;
+  --signal-active-bg: rgba(16, 185, 129, 0.15);
+  --radius: 8px;
+  --radius-sm: 4px;
+
+  font-family: 'Pretendard';
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text);
+  background-color: var(--bg);
+}
+
+body {
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}
