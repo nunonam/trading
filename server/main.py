@@ -1,5 +1,6 @@
 """FastAPI 서버 - Day Trading Backend"""
 
+import os
 import logging
 from contextlib import asynccontextmanager
 
@@ -24,20 +25,22 @@ scheduler = AsyncIOScheduler()
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # ── Startup ──
-    logger.info("KIS 인증 시작")
+    svr = os.environ.get("KIS_MODE", "prod")
+    logger.info(f"KIS 인증 시작 (mode={svr})")
     try:
-        kis.authenticate(svr="prod", product="01")
+        kis.authenticate(svr=svr, product="01")
         logger.info("KIS 인증 완료")
     except Exception as e:
-        logger.error(f"KIS 인증 실패: {e} (API는 동작하지만 KIS 호출 불가)")
+        logger.error(f"KIS 인증 실패: {e}")
 
-    # 5분 주기 급등주 스캔
-    scheduler.add_job(scanner.scan, "interval", minutes=5, id="surge_scan")
-    scheduler.start()
-    logger.info("급등주 스캐너 시작 (5분 주기)")
-
-    # 초기 스캔
-    scanner.scan()
+    if kis.is_authenticated:
+        # 5분 주기 급등주 스캔
+        scheduler.add_job(scanner.scan, "interval", minutes=5, id="surge_scan")
+        scheduler.start()
+        logger.info("급등주 스캐너 시작 (5분 주기)")
+        scanner.scan()
+    else:
+        logger.warning("KIS 미인증 - 스캐너 비활성화 (서버는 동작)")
 
     yield
 
@@ -64,4 +67,8 @@ app.include_router(ws.router)
 
 @app.get("/api/health")
 async def health():
-    return {"status": "ok", "kis_authenticated": kis.is_authenticated}
+    return {
+        "status": "ok",
+        "kis_authenticated": kis.is_authenticated,
+        "market_open": kis.check_market_open() if kis.is_authenticated else False,
+    }

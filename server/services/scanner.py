@@ -22,6 +22,10 @@ class SurgeScanner:
                 logger.warning("KIS 미인증 상태 - 스캔 스킵")
                 return
 
+            if not kis.check_market_open():
+                logger.info("장 운영시간 외 - 스캔 스킵")
+                return
+
             logger.info("급등주 스캔 시작")
             results = kis.scan_volume_surge()
 

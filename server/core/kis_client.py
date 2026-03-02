@@ -2,6 +2,8 @@
 
 import sys
 import os
+import logging
+from datetime import datetime
 from pathlib import Path
 
 # kis/ 모듈 경로 추가
@@ -22,6 +24,7 @@ from domestic_stock_functions import (
     order_cash,
     after_hour_balance,
     volume_rank,
+    chk_holiday,
 )
 from domestic_stock_functions_ws import (
     ccnl_krx,
@@ -38,6 +41,9 @@ class KISClient:
     def authenticate(self, svr: str = "prod", product: str = "01"):
         """인증 초기화"""
         ka.auth(svr=svr, product=product)
+        env = ka.getTREnv()
+        if not isinstance(env, tuple) or not hasattr(env, "my_url"):
+            raise RuntimeError("KIS 토큰 발급 실패 - kis_devlp.yaml의 앱키/시크릿을 확인하세요")
         self._authenticated = True
 
     def authenticate_ws(self, svr: str = "prod", product: str = "01"):
@@ -47,6 +53,34 @@ class KISClient:
     @property
     def is_authenticated(self) -> bool:
         return self._authenticated
+
+    # ── 장 운영시간 체크 ──
+
+    def check_market_open(self) -> bool:
+        """당일 개장 여부 확인 (KIS 휴장일 API + 시간 체크)"""
+        now = datetime.now()
+
+        # 캐싱: 같은 날짜면 API 재호출 안 함
+        today = now.strftime("%Y%m%d")
+        if hasattr(self, "_market_open_cache") and self._market_open_cache[0] == today:
+            is_open_day = self._market_open_cache[1]
+        else:
+            try:
+                df = chk_holiday(bass_dt=today)
+                row = df[df["bass_dt"] == today]
+                is_open_day = not row.empty and row.iloc[0].get("opnd_yn") == "Y"
+            except Exception as e:
+                logging.getLogger(__name__).warning(f"휴장일 조회 실패, 평일 기준 판단: {e}")
+                is_open_day = now.weekday() < 5
+            self._market_open_cache = (today, is_open_day)
+
+        if not is_open_day:
+            return False
+
+        # 장 운영시간: 09:00 ~ 15:30
+        market_open = now.replace(hour=9, minute=0, second=0, microsecond=0)
+        market_close = now.replace(hour=15, minute=30, second=0, microsecond=0)
+        return market_open <= now <= market_close
 
     # ── 시세 조회 ──
 
@@ -86,7 +120,7 @@ class KISClient:
         """거래량 급증 종목 스캔"""
         df = volume_rank(
             fid_cond_mrkt_div_code="J",
-            fid_cond_scr_div_code="20101",
+            fid_cond_scr_div_code="20171",
             fid_input_iscd="0000",
             fid_div_cls_code="0",
             fid_blng_cls_code="0",

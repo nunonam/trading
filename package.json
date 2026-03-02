@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "server": "uvicorn server.main:app --reload",
+    "server:dev": "KIS_MODE=vps uvicorn server.main:app --reload"
   },
   "dependencies": {
     "react": "^19.2.0",

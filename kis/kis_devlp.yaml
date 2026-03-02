@@ -1,11 +1,11 @@
 #홈페이지에서 API서비스 신청시 받은 Appkey, Appsecret 값 설정
 #실전투자
 my_app: "PSOeRFIcdDUzHRpxO1Fd2WlYSFRTCdEUHGNv"
-my_sec: "hQIRN95l+VtOl/TgVja7KBRBfe8RwH0yJ3wczNxOHMwGEtZOIcHln1U9PfMtxdAKwQkdGP/"
+my_sec: "hQIRN95l+VtOl/TgVja7KBRBfe8RwH0yJ3wczNxOHMwGEtZOIcHln1U9PfMtxdAKwQkdGP/gdVUA1vQTNP74cGdqdIBgynwERqHwcE2MOX90H9bMmBaxlx0ijY6JqWEiGFLGoIyG7zcsDsOPBXbt9plTIbUbPAE3PGszYtc0RO2uCjmC74I="
 
 #모의투자
 paper_app: "PSfNdTfPQANPQhkrt9aCoNKAgbXSu1C1Uzux"
-paper_sec: "JwA1r8SfExMxwdHByQ3YMF+Kzoj7/zMl2+DBWRe3Pp/qFhzV9CYi3XTmPDTdKQsx3dG4AkMhRpwXUGsvFPDTJo6KdR3SIPrGzsLijU0Q231L/"
+paper_sec: "JwA1r8SfExMxwdHByQ3YMF+Kzoj7/zMl2+DBWRe3Pp/qFhzV9CYi3XTmPDTdKQsx3dG4AkMhRpwXUGsvFPDTJo6KdR3SIPrGzsLijU0Q231L/yGHQPBZEzh0PEh/8117L2TuN4S3hn02MNbmGxEzua8ekJA7YTZEpUTa4PJGo3r2BxTRzHk="
 
 # HTS ID
 my_htsid: "사용자 HTS ID"

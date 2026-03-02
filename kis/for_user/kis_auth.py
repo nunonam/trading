@@ -37,7 +37,7 @@ config_root = os.path.join(os.path.expanduser("~"), "KIS", "config")
 # token_tmp = config_root + 'KIS000000'  # 토큰 로컬저장시 파일 이름 지정, 파일이름을 토큰값이 유추가능한 파일명은 삼가바랍니다.
 # token_tmp = config_root + 'KIS' + datetime.today().strftime("%Y%m%d%H%M%S")  # 토큰 로컬저장시 파일명 년월일시분초
 token_tmp = os.path.join(
-    config_root, f"KIS{datetime.today().strftime("%Y%m%d")}"
+    config_root, f"KIS{datetime.today().strftime('%Y%m%d')}"
 )  # 토큰 로컬저장시 파일명 년월일
 
 # 접근토큰 관리하는 파일 존재여부 체크, 없으면 생성
@@ -46,7 +46,8 @@ if os.path.exists(token_tmp) == False:
 
 # 앱키, 앱시크리트, 토큰, 계좌번호 등 저장관리, 자신만의 경로와 파일명으로 설정하시기 바랍니다.
 # pip install PyYAML (패키지설치)
-with open(os.path.join(config_root, "kis_devlp.yaml"), encoding="UTF-8") as f:
+_yaml_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "kis_devlp.yaml")
+with open(_yaml_path, encoding="UTF-8") as f:
     _cfg = yaml.load(f, Loader=yaml.FullLoader)
 
 _TRENV = tuple()
@@ -224,7 +225,7 @@ def auth(svr="prod", product=_cfg["my_prod"], url=None):
             ).access_token_token_expired  # 토큰값 만료일시 가져오기
             save_token(my_token, my_expired)  # 새로 발급 받은 토큰 저장
         else:
-            print("Get Authentification token fail!\nYou have to restart your app!!!")
+            print(f"Get Authentification token fail! status={rescode}, body={res.text}")
             return
     else:
         my_token = saved_token  # 기존 발급 토큰 확인되어 기존 토큰 사용

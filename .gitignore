@@ -23,5 +23,9 @@ dist-ssr
 *.sln
 *.sw?
 
+# Python
+__pycache__/
+*.pyc
+
 # KIS API credentials
 kis/kis_devlp.yaml
