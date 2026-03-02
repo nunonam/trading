@@ -71,4 +71,5 @@ async def health():
         "status": "ok",
         "kis_authenticated": kis.is_authenticated,
         "market_open": kis.check_market_open() if kis.is_authenticated else False,
+        "mode": os.environ.get("KIS_MODE", "prod"),
     }

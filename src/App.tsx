@@ -16,17 +16,21 @@ export default function App() {
   const [watchList] = useState<WatchStock[]>([]);
   const [holdings] = useState<HoldingStock[]>([]);
   const [marketOpen, setMarketOpen] = useState<boolean | null>(null);
+  const [mode, setMode] = useState<'prod' | 'vps'>('prod');
 
   useEffect(() => {
     fetch('/api/health')
       .then((res) => res.json())
-      .then((data) => setMarketOpen(data.market_open ?? false))
+      .then((data) => {
+        setMarketOpen(data.market_open ?? false);
+        setMode(data.mode ?? 'prod');
+      })
       .catch(() => setMarketOpen(false));
   }, []);
 
   return (
     <div className="app">
-      <Header portfolio={portfolio} marketOpen={marketOpen} />
+      <Header portfolio={portfolio} marketOpen={marketOpen} mode={mode} />
       <main className="main">
         <section className="panel panel-watch">
           <h2 className="panel-title">관심종목</h2>

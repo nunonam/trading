@@ -54,6 +54,16 @@
   color: var(--down);
 }
 
+.mode-paper {
+  background: var(--accent-bg);
+  color: var(--accent);
+}
+
+.mode-prod {
+  background: var(--up-bg);
+  color: var(--up);
+}
+
 .header-right {
   display: flex;
   align-items: center;
