@@ -1,4 +1,4 @@
-"""FastAPI 서버 - Day Trading Backend"""
+"""FastAPI 서버 - DISTONE TRADING Backend"""
 
 import os
 import logging
@@ -49,7 +49,7 @@ async def lifespan(app: FastAPI):
     logger.info("서버 종료")
 
 
-app = FastAPI(title="Day Trading API", lifespan=lifespan)
+app = FastAPI(title="DISTONE TRADING API", lifespan=lifespan)
 
 # CORS (개발용)
 app.add_middleware(

@@ -1,9 +1,9 @@
-# Day Trading Web App
+# DISTONE TRADING Web App
 
 ## Project Overview
 
-KIS Open API를 활용한 국내주식 데이트레이딩 웹 애플리케이션.
-일간 최소 2% 이상 수익률 달성을 목표로 한 자동 모니터링 + 반자동 매매 시스템.
+KIS Open API를 활용한 국내주식 데이트레이딩 웹 애플리케이션. 일간 최소 2% 이상
+수익률 달성을 목표로 한 자동 모니터링 + 반자동 매매 시스템.
 
 ## Tech Stack
 
@@ -60,17 +60,17 @@ npm run dev
 
 ## API Endpoints
 
-| Method | Path | Description |
-|--------|------|-------------|
-| GET | `/api/health` | 서버 상태 & KIS 인증 여부 |
-| GET | `/api/stocks/watchlist` | 급등주 스캔 결과 (5분 자동갱신) |
-| GET | `/api/stocks/price/{code}` | 종목 현재가 |
-| GET | `/api/stocks/chart/{code}` | 분봉 차트 데이터 |
-| POST | `/api/stocks/scan` | 수동 급등주 스캔 |
-| GET | `/api/portfolio/balance` | 잔고 조회 |
-| POST | `/api/portfolio/buy` | 매수 주문 |
-| POST | `/api/portfolio/sell` | 매도 주문 |
-| WS | `/ws/prices` | 실시간 시세 구독 |
+| Method | Path                       | Description                     |
+| ------ | -------------------------- | ------------------------------- |
+| GET    | `/api/health`              | 서버 상태 & KIS 인증 여부       |
+| GET    | `/api/stocks/watchlist`    | 급등주 스캔 결과 (5분 자동갱신) |
+| GET    | `/api/stocks/price/{code}` | 종목 현재가                     |
+| GET    | `/api/stocks/chart/{code}` | 분봉 차트 데이터                |
+| POST   | `/api/stocks/scan`         | 수동 급등주 스캔                |
+| GET    | `/api/portfolio/balance`   | 잔고 조회                       |
+| POST   | `/api/portfolio/buy`       | 매수 주문                       |
+| POST   | `/api/portfolio/sell`      | 매도 주문                       |
+| WS     | `/ws/prices`               | 실시간 시세 구독                |
 
 ## UI Layout
 
@@ -89,7 +89,7 @@ npm run dev
 └───────────────────────────────────┴─────────────────┘
 ```
 
-## Day Trading Strategy
+## DISTONE TRADING Strategy
 
 ### 목표
 
@@ -110,7 +110,8 @@ npm run dev
 - 관심종목을 **WebSocket으로 실시간 구독**
 - **5분봉** 기반 기술적 분석
 - **매수 시그널 판단**:
-  - **VWAP (Volume Weighted Average Price)**: 현재가가 VWAP 위에서 지지받는지 확인
+  - **VWAP (Volume Weighted Average Price)**: 현재가가 VWAP 위에서 지지받는지
+    확인
   - **EMA (Exponential Moving Average)**: 단기 EMA(9) > 중기 EMA(20) 골든크로스
   - VWAP 위 + EMA 골든크로스 동시 충족 시 매수 시그널 발생
 
@@ -141,13 +142,13 @@ npm run dev
 
 ### Key Indicators Summary
 
-| 지표 | 용도 | 설정 |
-|------|------|------|
-| VWAP | 매수 기준선 | 당일 누적 거래량 가중 평균가 |
-| EMA(9) | 단기 추세 | 9봉 지수이동평균 |
-| EMA(20) | 중기 추세 | 20봉 지수이동평균 |
-| Swing High | 익절 기준 | 5분봉 직전 고점 |
-| Swing Low | 손절 기준 | 5분봉 직전 저점 |
+| 지표       | 용도        | 설정                         |
+| ---------- | ----------- | ---------------------------- |
+| VWAP       | 매수 기준선 | 당일 누적 거래량 가중 평균가 |
+| EMA(9)     | 단기 추세   | 9봉 지수이동평균             |
+| EMA(20)    | 중기 추세   | 20봉 지수이동평균            |
+| Swing High | 익절 기준   | 5분봉 직전 고점              |
+| Swing Low  | 손절 기준   | 5분봉 직전 저점              |
 
 ### Risk Management Rules
 

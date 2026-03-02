@@ -37,9 +37,11 @@ class KISClient:
 
     def __init__(self):
         self._authenticated = False
+        self._svr = "prod"
 
     def authenticate(self, svr: str = "prod", product: str = "01"):
         """인증 초기화"""
+        self._svr = svr
         ka.auth(svr=svr, product=product)
         env = ka.getTREnv()
         if not isinstance(env, tuple) or not hasattr(env, "my_url"):
@@ -65,13 +67,17 @@ class KISClient:
         if hasattr(self, "_market_open_cache") and self._market_open_cache[0] == today:
             is_open_day = self._market_open_cache[1]
         else:
-            try:
-                df = chk_holiday(bass_dt=today)
-                row = df[df["bass_dt"] == today]
-                is_open_day = not row.empty and row.iloc[0].get("opnd_yn") == "Y"
-            except Exception as e:
-                logging.getLogger(__name__).warning(f"휴장일 조회 실패, 평일 기준 판단: {e}")
+            # 모의투자에서는 휴장일 API 미지원 (tr_id 자동 변환 문제)
+            if self._svr == "vps":
                 is_open_day = now.weekday() < 5
+            else:
+                try:
+                    df = chk_holiday(bass_dt=today)
+                    row = df[df["bass_dt"] == today]
+                    is_open_day = not row.empty and row.iloc[0].get("opnd_yn") == "Y"
+                except Exception as e:
+                    logging.getLogger(__name__).warning(f"휴장일 조회 실패, 평일 기준 판단: {e}")
+                    is_open_day = now.weekday() < 5
             self._market_open_cache = (today, is_open_day)
 
         if not is_open_day:
