@@ -8,16 +8,9 @@ function formatKRW(value: number): string {
   return value.toLocaleString('ko-KR');
 }
 
-const STATUS_LABEL: Record<HoldingStock['status'], string> = {
-  holding: '보유',
-  partial_sell: '분할매도중',
-  stop_loss: '손절중',
-};
-
 export default function HoldingCard({ stock }: HoldingCardProps) {
-  const { name, code, avgPrice, currentPrice, quantity, totalQuantity, profitRate, profitAmount, status, swingHigh, swingLow } = stock;
+  const { name, code, avgPrice, currentPrice, quantity, profitRate, profitAmount } = stock;
   const isProfit = profitRate >= 0;
-  const soldQty = totalQuantity - quantity;
 
   return (
     <div className={`card holding-card ${isProfit ? 'profit' : 'loss'}`}>
@@ -26,9 +19,6 @@ export default function HoldingCard({ stock }: HoldingCardProps) {
           <span className="stock-name">{name}</span>
           <span className="stock-code">{code}</span>
         </div>
-        <span className={`status-badge status-${status}`}>
-          {STATUS_LABEL[status]}
-        </span>
       </div>
 
       <div className="card-price">
@@ -45,7 +35,7 @@ export default function HoldingCard({ stock }: HoldingCardProps) {
         </div>
         <div className="detail-row">
           <span className="detail-label">수량</span>
-          <span className="detail-value">{quantity}주 / {totalQuantity}주{soldQty > 0 && ` (${soldQty}주 매도)`}</span>
+          <span className="detail-value">{quantity}주</span>
         </div>
         <div className="detail-row">
           <span className="detail-label">수익금</span>
@@ -53,11 +43,6 @@ export default function HoldingCard({ stock }: HoldingCardProps) {
             {isProfit ? '+' : ''}{formatKRW(profitAmount)}원
           </span>
         </div>
-      </div>
-
-      <div className="swing-info">
-        <span className="swing-item swing-high">SH {formatKRW(swingHigh)}</span>
-        <span className="swing-item swing-low">SL {formatKRW(swingLow)}</span>
       </div>
 
       <div className="card-actions">

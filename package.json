@@ -8,8 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "server": "uvicorn server.main:app --reload",
-    "server:dev": "KIS_MODE=vps uvicorn server.main:app --reload",
+    "server": "uvicorn server.main:app --reload 2>&1 | tee -a logs/server.log",
+    "server:dev": "KIS_MODE=vps uvicorn server.main:app --reload 2>&1 | tee -a logs/server.log",
     "start": "uvicorn server.main:app --reload >> logs/server.log 2>&1 & sleep 1 && vite",
     "start:dev": "KIS_MODE=vps uvicorn server.main:app --reload >> logs/server.log 2>&1 & sleep 1 && vite"
   },

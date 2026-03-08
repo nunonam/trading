@@ -34,10 +34,10 @@ async def lifespan(app: FastAPI):
         logger.error(f"KIS 인증 실패: {e}")
 
     if kis.is_authenticated:
-        # 5분 주기 급등주 스캔
-        scheduler.add_job(scanner.scan, "interval", minutes=5, id="surge_scan")
+        # 1분 주기 급등주 스캔
+        scheduler.add_job(scanner.scan, "interval", minutes=1, id="surge_scan")
         scheduler.start()
-        logger.info("급등주 스캐너 시작 (5분 주기)")
+        logger.info("급등주 스캐너 시작 (1분 주기)")
         scanner.scan()
     else:
         logger.warning("KIS 미인증 - 스캐너 비활성화 (서버는 동작)")

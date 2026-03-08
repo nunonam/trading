@@ -1,28 +1,11 @@
-export interface StockPrice {
-  current: number;
-  open: number;
-  high: number;
-  low: number;
-  prevClose: number;
-  volume: number;
-}
-
-export interface TechnicalSignal {
-  vwap: number;
-  ema9: number;
-  ema20: number;
-  aboveVwap: boolean;
-  emaCross: 'golden' | 'dead' | 'none';
-  buySignal: boolean;
-}
-
 export interface WatchStock {
   code: string;
   name: string;
-  price: StockPrice;
+  currentPrice: number;
   changeRate: number;
-  signal: TechnicalSignal;
-  addedAt: string;
+  volume: number;
+  volumeRate: number;
+  scannedAt: string;
 }
 
 export interface HoldingStock {
@@ -31,12 +14,9 @@ export interface HoldingStock {
   avgPrice: number;
   currentPrice: number;
   quantity: number;
-  totalQuantity: number;
   profitRate: number;
   profitAmount: number;
-  status: 'holding' | 'partial_sell' | 'stop_loss';
-  swingHigh: number;
-  swingLow: number;
+  evalAmount: number;
 }
 
 export interface PortfolioSummary {

@@ -163,15 +163,17 @@ class KISClient:
 
     def get_balance(self) -> dict:
         """잔고 조회 (보유종목 + 예수금)"""
+        env = ka.getTREnv()
         result = inquire_balance(
+            env_dv="demo" if self._svr == "vps" else "real",
+            cano=env.my_acct,
+            acnt_prdt_cd=env.my_prod,
             afhr_flpr_yn="N",
-            ofl_yn="",
             inqr_dvsn="02",
             unpr_dvsn="01",
             fund_sttl_icld_yn="N",
             fncg_amt_auto_rdpt_yn="N",
             prcs_dvsn="01",
-            cost_icld_yn="Y",
         )
         if result and isinstance(result, tuple) and len(result) == 2:
             holdings_df, summary_df = result
